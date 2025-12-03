@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Productos - Mundo Mascotas</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff3e6;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      height: 100vh;
+      position: fixed;
+      overflow-y: auto;
+    }
+
+    .sidebar h3 {
+      color: #bb7744;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+
+    .main-content {
+      margin-left: 270px;
+      padding: 30px;
+      flex-grow: 1;
+    }
+
+    .btn-regresar {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background-color: #bb7744;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .btn-regresar:hover {
+      background-color: #a65f2e;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .product img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product button {
+      margin-top: 10px;
+      background-color: #bb7744;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .product button:hover {
+      background-color: #a65f2e;
+    }
+
+    .category-content {
+      display: none;
+      margin-left: 10px;
+    }
+
+    .active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>Categorías</h2>
+    <h3 onclick="toggleCategory('accesorios')">Accesorios</h3>
+    <div id="accesorios" class="category-content active"></div>
+
+    <h3 onclick="toggleCategory('alimento')">Alimento</h3>
+    <div id="alimento" class="category-content"></div>
+
+    <h3 onclick="toggleCategory('camas')">Camas y tapetes</h3>
+    <div id="camas" class="category-content"></div>
+
+    <h3 onclick="toggleCategory('desparasitantes')">Desparasitantes</h3>
+    <div id="desparasitantes" class="category-content"></div>
+
+    <h3 onclick="toggleCategory('higiene')">Higiene y salud</h3>
+    <div id="higiene" class="category-content"></div>
+
+    <h3 onclick="toggleCategory('jaulas')">Jaulas y transportadoras</h3>
+    <div id="jaulas" class="category-content"></div>
+  </div>
+
+  <div class="main-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      <a href="index.html" class="btn-regresar">← Regresar al inicio</a>
+      <a href="carrito.html" class="btn-regresar">🛒 Ver carrito (<span id="cartCount">0</span>)</a>
+    </div>
+    <div class="products" id="productContainer">
+      <!-- Aquí se mostrarán los productos según la categoría activa -->
+    </div>
+  </div>
+
+  <script>
+    const productos = {
+      accesorios: [
+        { nombre: "Collar luminoso", src: "imagenes/collar.jpeg", precio: 150 },
+        { nombre: "Juguete hueso", src: "imagenes/hueso.jpeg", precio: 80 },
+        { nombre: "Cepillo", src: "imagenes/cepillo.jpeg", precio: 60 },
+        { nombre: "Plato doble", src: "imagenes/plato.webp", precio: 120 },
+        { nombre: "Dispensador de bolsas", src: "imagenes/dispensador.jpeg", precio: 90 },
+      ],
+      alimento: [
+        { nombre: "Croquetas premium", src: "imagenes/croquetas.jpeg", precio: 250 },
+        { nombre: "Snacks dentales", src: "imagenes/snack.jpeg", precio: 100 },
+        { nombre: "Alimento húmedo", src: "imagenes/humedo.jpeg", precio: 180 },
+        { nombre: "Vitaminas", src: "imagenes/vitaminas.jpeg", precio: 140 },
+        { nombre: "Barras energéticas", src: "imagenes/barras.jpeg", precio: 130 },
+      ],
+      camas: [
+        { nombre: "Cama esponjosa", src: "imagenes/cama.jpeg", precio: 300 },
+        { nombre: "Tapete refrescante", src: "imagenes/tapete.jpeg", precio: 220 },
+        { nombre: "Cama cueva", src: "imagenes/cueva.jpeg", precio: 350 },
+        { nombre: "Colchoneta ortopédica", src: "imagenes/colchoneta.jpeg", precio: 400 },
+        { nombre: "Almohada antiestrés", src: "imagenes/almohada.jpeg", precio: 180 },
+      ],
+      desparasitantes: [
+        { nombre: "Pipetas antipulgas", src: "imagenes/pipetas.jpeg", precio: 150 },
+        { nombre: "Jarabe desparasitante", src: "imagenes/jarabe.jpeg", precio: 100 },
+        { nombre: "Collar antiparásito", src: "imagenes/collar_anti.jpeg", precio: 130 },
+        { nombre: "Pastillas internas", src: "imagenes/pastilla.jpeg", precio: 120 },
+        { nombre: "Spray repelente", src: "imagenes/spray.jpeg", precio: 140 },
+      ],
+      higiene: [
+        { nombre: "Shampoo natural", src: "imagenes/shampoo.jpeg", precio: 90 },
+        { nombre: "Toallas húmedas", src: "imagenes/toallitas.jpeg", precio: 80 },
+        { nombre: "Kit dental", src: "imagenes/dental.jpeg", precio: 110 },
+        { nombre: "Cortaúñas", src: "imagenes/cortauñas.jpeg", precio: 70 },
+        { nombre: "Perfume para mascotas", src: "imagenes/perfume.jpeg", precio: 130 },
+      ],
+      jaulas: [
+        { nombre: "Transportadora rígida", src: "imagenes/jaula.jpeg", precio: 800 },
+        { nombre: "Bolso ventilado", src: "imagenes/bolso.jpeg", precio: 650 },
+        { nombre: "Jaula grande", src: "imagenes/jaula_grande.jpeg", precio: 900 },
+        { nombre: "Caja de viaje", src: "imagenes/caja.jpeg", precio: 700 },
+        { nombre: "Mochila burbuja", src: "imagenes/mochila.jpeg", precio: 750 },
+      ]
+    };
+
+    function toggleCategory(cat) {
+      document.querySelectorAll('.category-content').forEach(c => c.classList.remove('active'));
+      document.getElementById(cat).classList.add('active');
+      mostrarProductos(cat);
+    }
+
+    function mostrarProductos(cat) {
+      const contenedor = document.getElementById("productContainer");
+      contenedor.innerHTML = "";
+      productos[cat].forEach(prod => {
+        contenedor.innerHTML += `
+          <div class="product">
+            <img src="${prod.src}" alt="${prod.nombre}">
+            <h4>${prod.nombre}</h4>
+            <p>Precio: $${prod.precio}</p>
+            <button onclick="agregarCarrito('${prod.nombre}', ${prod.precio})">Agregar al carrito</button>
+          </div>
+        `;
+      });
+    }
+
+    function agregarCarrito(nombre, precio) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      // Buscar si ya existe el producto para incrementar cantidad
+      const index = carrito.findIndex(item => item.nombre === nombre);
+      if(index !== -1) {
+        carrito[index].cantidad += 1;
+      } else {
+        carrito.push({ nombre, precio, cantidad: 1 });
+      }
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarContador();
+      alert(`Producto "${nombre}" agregado al carrito`);
+    }
+
+    function actualizarContador() {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const totalProductos = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+      document.getElementById('cartCount').textContent = totalProductos;
+    }
+
+    // Mostrar por defecto la categoría "accesorios"
+    mostrarProductos("accesorios");
+    actualizarContador();
+  </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrito - Mundo de Mascotas</title>
+  <style>
+    body {
+      background-color: #fef6f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #bb7744;
+      padding: 1rem;
+    }
+    .logo {
+      color: #fff;
+      margin: 0;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+    .inicio {
+      padding: 2rem;
+    }
+    .contenido-inicio {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .imagen-inicio img {
+      width: 200px;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #bb7744;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      text-decoration: none;
+      margin-top: 1rem;
+    }
+    table.carrito {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    table.carrito th, table.carrito td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    .total, .finalizar {
+      margin-top: 1rem;
+      text-align: right;
+    }
+    .finalizar button {
+      background-color: #bb7744;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #bb7744;
+      color: #fff;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <h1 class="logo">Mundo de Mascotas</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos2.html">Productos</a></li>
+          <li><a href="descuentos.html">Descuentos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inicio">
+    <section class="contenido-inicio">
+      <div class="imagen-inicio">
+        <img src="imagenes/carrito-mascotas.jpg" alt="Carrito de compras para mascotas" />
+      </div>
+      <div class="texto-inicio">
+        <h2>Tu carrito</h2>
+        <p>Revisa los productos que has agregado y finaliza tu compra cuando estés listo.</p>
+        <a href="productos2.html" class="btn">Seguir comprando</a>
+      </div>
+    </section>
+
+    <section class="tabla-carrito">
+      <table class="carrito">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody id="carritoBody">
+          <!-- Aquí van los productos del carrito -->
+        </tbody>
+      </table>
+
+      <div class="total">
+        <strong>Total:</strong> <span id="total">$0.00</span>
+      </div>
+
+      <div class="finalizar">
+        <button onclick="finalizarCompra()">Finalizar compra</button>
+      </div>
+    </section>
+  </main>
+<script>
+  function cargarCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const tbody = document.getElementById("carritoBody");
+    const totalSpan = document.getElementById("total");
+    tbody.innerHTML = "";
+
+    let total = 0;
+    carrito.forEach((producto, index) => {
+      const subtotal = producto.precio * producto.cantidad;
+      total += subtotal;
+      const row = `
+        <tr>
+          <td>${producto.nombre}</td>
+          <td>$${producto.precio.toFixed(2)}</td>
+          <td>${producto.cantidad}</td>
+          <td><button onclick="eliminarProducto(${index})">🗑️</button></td>
+        </tr>
+      `;
+      tbody.innerHTML += row;
+    });
+
+    totalSpan.textContent = `$${total.toFixed(2)}`;
+  }
+
+  function eliminarProducto(index) {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    carrito.splice(index, 1);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    cargarCarrito();
+  }
+
+  function finalizarCompra() {
+    alert("¡Gracias por tu compra!");
+    localStorage.removeItem('carrito');
+    cargarCarrito();
+  }
+
+  // Cargar carrito al entrar
+  cargarCarrito();
+</script>
+1 -
+  <footer>
+    <p>&copy; 2025 Mundo de Mascotas. Todos los derechos reservados.</p

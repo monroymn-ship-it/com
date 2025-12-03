@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Descuentos - Mundo de Mascotas</title>
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    body {
+      background-color: #fef6f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #bb7744;
+      padding: 1rem;
+    }
+    .logo {
+      color: #fff;
+      margin: 0;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+    }
+    .inicio {
+      padding: 2rem;
+    }
+    .contenido-inicio {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .imagen-inicio img {
+      width: 200px;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #bb7744;
+      color: white;
+      border: none;
+      border-radius: 1rem;
+      text-decoration: none;
+      margin-top: 1rem;
+    }
+    .ofertas {
+      margin-top: 2rem;
+    }
+    .oferta {
+      background-color: white;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .oferta h3 {
+      margin-top: 0;
+    }
+    .oferta p {
+      margin: 0.5rem 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #bb7744;
+      color: #fff;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+      <h1 class="logo">Mundo de Mascotas</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos2.html">Productos</a></li>
+          <li><a href="descuentos.html">Descuentos</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inicio">
+    <section class="contenido-inicio">
+      <div class="imagen-inicio">
+        <img src="imagenes/descuento-mascotas.jpg" alt="Ofertas para mascotas">
+      </div>
+      <div class="texto-inicio">
+        <h2>Ofertas Especiales</h2>
+        <p>Aprovecha las mejores promociones para tu peludo amigo. ¡Descuentos por tiempo limitado!</p>
+        <a href="productos2.html" class="btn">Ver productos</a>
+      </div>
+    </section>
+
+    <section class="ofertas">
+      <div class="oferta">
+        <h3>Collares con 20% de descuento</h3>
+        <p>Variedad de colores y tallas. ¡Elige el que más te guste!</p>
+      </div>
+      <div class="oferta">
+        <h3>Alimento premium 2x1</h3>
+        <p>Nutrición completa para perros y gatos. Solo esta semana.</p>
+      </div>
+      <div class="oferta">
+        <h3>Camas con hasta 30% off</h3>
+        <p>Para un descanso cómodo y cálido. Tamaños grandes y pequeños.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Mundo de Mascotas. Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>
